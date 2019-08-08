@@ -3,7 +3,7 @@ package com.study.jvm;
 import java.util.ArrayList;
 
 // 资源占用过多或者资源未释放，内存溢出
-// 网易碰到问题
+// -Xmx512m -server -Xloggc:gc.log -XX:+HeapDumpOnOutOfMemoryError
 public class OutOfMemoryDemo1 {
     static ArrayList<Object> space = new ArrayList<Object>();
 

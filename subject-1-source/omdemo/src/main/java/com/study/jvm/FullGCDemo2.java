@@ -14,8 +14,7 @@ public class FullGCDemo2 {
     public static void main(String[] args) throws Exception {
         for (int i = 0; i < 1000; i++) {
             WorkbookSettings workbookSettings = new WorkbookSettings();
-            workbookSettings.setGCDisabled(true);
-
+            workbookSettings.setGCDisabled(true); // 依赖包里面写
             Workbook book = Workbook.getWorkbook(new File(FullGCDemo2.class.getClassLoader().getResource("FullGCDemo2.xls").getFile()), workbookSettings);
             // 获得第一个工作表对象
             Sheet sheet = book.getSheet(0);
