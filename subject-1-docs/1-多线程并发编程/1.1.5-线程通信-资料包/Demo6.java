@@ -1,107 +1,107 @@
 import java.util.concurrent.locks.LockSupport;
 
-/** ÈıÖÖÏß³ÌĞ­×÷Í¨ĞÅµÄ·½Ê½£ºsuspend/resume¡¢wait/notify¡¢park/unpark */
+/** ä¸‰ç§çº¿ç¨‹åä½œé€šä¿¡çš„æ–¹å¼ï¼šsuspend/resumeã€wait/notifyã€park/unpark */
 public class Demo6 {
-	/** °ü×Óµê */
+	/** åŒ…å­åº— */
 	public static Object baozidian = null;
 
-	/** Õı³£µÄsuspend/resume */
+	/** æ­£å¸¸çš„suspend/resume */
 	public void suspendResumeTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		Thread consumerThread = new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
-				System.out.println("1¡¢½øÈëµÈ´ı");
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
+				System.out.println("1ã€è¿›å…¥ç­‰å¾…");
 				Thread.currentThread().suspend();
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		});
 		consumerThread.start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
 		consumerThread.resume();
-		System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+		System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 	}
 
-	/** ËÀËøµÄsuspend/resume¡£ suspend²¢²»»áÏñwaitÒ»ÑùÊÍ·ÅËø£¬¹Ê´ËÈİÒ×Ğ´³öËÀËø´úÂë */
+	/** æ­»é”çš„suspend/resumeã€‚ suspendå¹¶ä¸ä¼šåƒwaitä¸€æ ·é‡Šæ”¾é”ï¼Œæ•…æ­¤å®¹æ˜“å†™å‡ºæ­»é”ä»£ç  */
 	public void suspendResumeDeadLockTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		Thread consumerThread = new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
-				System.out.println("1¡¢½øÈëµÈ´ı");
-				// µ±Ç°Ïß³ÌÄÃµ½Ëø£¬È»ºó¹ÒÆğ
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
+				System.out.println("1ã€è¿›å…¥ç­‰å¾…");
+				// å½“å‰çº¿ç¨‹æ‹¿åˆ°é”ï¼Œç„¶åæŒ‚èµ·
 				synchronized (this) {
 					Thread.currentThread().suspend();
 				}
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		});
 		consumerThread.start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
-		// ÕùÈ¡µ½ËøÒÔºó£¬ÔÙ»Ö¸´consumerThread
+		// äº‰å–åˆ°é”ä»¥åï¼Œå†æ¢å¤consumerThread
 		synchronized (this) {
 			consumerThread.resume();
 		}
-		System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+		System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 	}
 
-	/** µ¼ÖÂ³ÌĞòÓÀ¾Ã¹ÒÆğµÄsuspend/resume */
+	/** å¯¼è‡´ç¨‹åºæ°¸ä¹…æŒ‚èµ·çš„suspend/resume */
 	public void suspendResumeDeadLockTest2() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		Thread consumerThread = new Thread(() -> {
 			if (baozidian == null) {
-				System.out.println("1¡¢Ã»°ü×Ó£¬½øÈëµÈ´ı");
-				try { // ÎªÕâ¸öÏß³Ì¼ÓÉÏÒ»µãÑÓÊ±
+				System.out.println("1ã€æ²¡åŒ…å­ï¼Œè¿›å…¥ç­‰å¾…");
+				try { // ä¸ºè¿™ä¸ªçº¿ç¨‹åŠ ä¸Šä¸€ç‚¹å»¶æ—¶
 					Thread.sleep(5000L);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				// ÕâÀïµÄ¹ÒÆğÖ´ĞĞÔÚresumeºóÃæ
+				// è¿™é‡Œçš„æŒ‚èµ·æ‰§è¡Œåœ¨resumeåé¢
 				Thread.currentThread().suspend();
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		});
 		consumerThread.start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
 		consumerThread.resume();
-		System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+		System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 		consumerThread.join();
 	}
 
-	/** Õı³£µÄwait/notify */
+	/** æ­£å¸¸çš„wait/notify */
 	public void waitNotifyTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
 				synchronized (this) {
 					try {
-						System.out.println("1¡¢½øÈëµÈ´ı");
+						System.out.println("1ã€è¿›å…¥ç­‰å¾…");
 						this.wait();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		}).start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
 		synchronized (this) {
 			this.notifyAll();
-			System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+			System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 		}
 	}
 
-	/** »áµ¼ÖÂ³ÌĞòÓÀ¾ÃµÈ´ıµÄwait/notify */
+	/** ä¼šå¯¼è‡´ç¨‹åºæ°¸ä¹…ç­‰å¾…çš„wait/notify */
 	public void waitNotifyDeadLockTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
 				try {
 					Thread.sleep(5000L);
 				} catch (InterruptedException e1) {
@@ -109,77 +109,77 @@ public class Demo6 {
 				}
 				synchronized (this) {
 					try {
-						System.out.println("1¡¢½øÈëµÈ´ı");
+						System.out.println("1ã€è¿›å…¥ç­‰å¾…");
 						this.wait();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		}).start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
 		synchronized (this) {
 			this.notifyAll();
-			System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+			System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 		}
 	}
 
-	/** Õı³£µÄpark/unpark */
+	/** æ­£å¸¸çš„park/unpark */
 	public void parkUnparkTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		Thread consumerThread = new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
-				System.out.println("1¡¢½øÈëµÈ´ı");
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
+				System.out.println("1ã€è¿›å…¥ç­‰å¾…");
 				LockSupport.park();
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		});
 		consumerThread.start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
 		LockSupport.unpark(consumerThread);
-		System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+		System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 	}
 
-	/** ËÀËøµÄpark/unpark */
+	/** æ­»é”çš„park/unpark */
 	public void parkUnparkDeadLockTest() throws Exception {
-		// Æô¶¯Ïß³Ì
+		// å¯åŠ¨çº¿ç¨‹
 		Thread consumerThread = new Thread(() -> {
-			if (baozidian == null) { // Èç¹ûÃ»°ü×Ó£¬Ôò½øÈëµÈ´ı
-				System.out.println("1¡¢½øÈëµÈ´ı");
-				// µ±Ç°Ïß³ÌÄÃµ½Ëø£¬È»ºó¹ÒÆğ
+			if (baozidian == null) { // å¦‚æœæ²¡åŒ…å­ï¼Œåˆ™è¿›å…¥ç­‰å¾…
+				System.out.println("1ã€è¿›å…¥ç­‰å¾…");
+				// å½“å‰çº¿ç¨‹æ‹¿åˆ°é”ï¼Œç„¶åæŒ‚èµ·
 				synchronized (this) {
 					LockSupport.park();
 				}
 			}
-			System.out.println("2¡¢Âòµ½°ü×Ó£¬»Ø¼Ò");
+			System.out.println("2ã€ä¹°åˆ°åŒ…å­ï¼Œå›å®¶");
 		});
 		consumerThread.start();
-		// 3ÃëÖ®ºó£¬Éú²úÒ»¸ö°ü×Ó
+		// 3ç§’ä¹‹åï¼Œç”Ÿäº§ä¸€ä¸ªåŒ…å­
 		Thread.sleep(3000L);
 		baozidian = new Object();
-		// ÕùÈ¡µ½ËøÒÔºó£¬ÔÙ»Ö¸´consumerThread
+		// äº‰å–åˆ°é”ä»¥åï¼Œå†æ¢å¤consumerThread
 		synchronized (this) {
 			LockSupport.unpark(consumerThread);
 		}
-		System.out.println("3¡¢Í¨ÖªÏû·ÑÕß");
+		System.out.println("3ã€é€šçŸ¥æ¶ˆè´¹è€…");
 	}
 
 	public static void main(String[] args) throws Exception {
-		// ¶Ôµ÷ÓÃË³ĞòÓĞÒªÇó£¬Ò²Òª¿ª·¢×Ô¼º×¢ÒâËøµÄÊÍ·Å¡£Õâ¸ö±»ÆúÓÃµÄAPI£¬ ÈİÒ×ËÀËø£¬Ò²ÈİÒ×µ¼ÖÂÓÀ¾Ã¹ÒÆğ¡£
+		// å¯¹è°ƒç”¨é¡ºåºæœ‰è¦æ±‚ï¼Œä¹Ÿè¦å¼€å‘è‡ªå·±æ³¨æ„é”çš„é‡Šæ”¾ã€‚è¿™ä¸ªè¢«å¼ƒç”¨çš„APIï¼Œ å®¹æ˜“æ­»é”ï¼Œä¹Ÿå®¹æ˜“å¯¼è‡´æ°¸ä¹…æŒ‚èµ·ã€‚
 		// new Demo6().suspendResumeTest();
 		// new Demo6().suspendResumeDeadLockTest();
 		// new Demo6().suspendResumeDeadLockTest2();
 
-		// wait/notifyÒªÇóÔÙÍ¬²½¹Ø¼ü×ÖÀïÃæÊ¹ÓÃ£¬ÃâÈ¥ÁËËÀËøµÄÀ§ÈÅ£¬µ«ÊÇÒ»¶¨ÒªÏÈµ÷ÓÃwait£¬ÔÙµ÷ÓÃnotify£¬·ñÔòÓÀ¾ÃµÈ´ıÁË
+		// wait/notifyè¦æ±‚å†åŒæ­¥å…³é”®å­—é‡Œé¢ä½¿ç”¨ï¼Œå…å»äº†æ­»é”çš„å›°æ‰°ï¼Œä½†æ˜¯ä¸€å®šè¦å…ˆè°ƒç”¨waitï¼Œå†è°ƒç”¨notifyï¼Œå¦åˆ™æ°¸ä¹…ç­‰å¾…äº†
 		// new Demo6().waitNotifyTest();
 		// new Demo6().waitNotifyDeadLockTest();
 
-		// park/unparkÃ»ÓĞË³ĞòÒªÇó£¬µ«ÊÇpark²¢²»»áÊÍ·ÅËø£¬ËùÓĞÔÙÍ¬²½´úÂëÖĞÊ¹ÓÃÒª×¢Òâ
+		// park/unparkæ²¡æœ‰é¡ºåºè¦æ±‚ï¼Œä½†æ˜¯parkå¹¶ä¸ä¼šé‡Šæ”¾é”ï¼Œæ‰€æœ‰å†åŒæ­¥ä»£ç ä¸­ä½¿ç”¨è¦æ³¨æ„
 		// new Demo6().parkUnparkTest();
 		// new Demo6().parkUnparkDeadLockTest();
 
