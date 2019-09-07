@@ -1,7 +1,7 @@
 package com.study.hc.thread.chapter1.thread;
 
 /**
- * 示例1 - JAVA程序执行分析
+ * 绀轰緥1 - JAVA绋嬪簭鎵ц鍒嗘瀽
  */
 public class Demo1 {
 	public int x;

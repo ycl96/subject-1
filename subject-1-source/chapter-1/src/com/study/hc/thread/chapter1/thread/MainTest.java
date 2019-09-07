@@ -1,15 +1,15 @@
 package com.study.hc.thread.chapter1.thread;
 
 public class MainTest {
-  // ¹²Ïí±äÁ¿
-  public static String content = "¿Õ";
+  // å…±äº«å˜é‡
+  public static String content = "ç©º";
   
   public static void main(String[] args) {
-    // Ïß³Ì1 - Ð´ÈëÊý¾Ý
+    // çº¿ç¨‹1 - å†™å…¥æ•°æ®
     new Thread(() -> {
       try {
         while (true) {
-          content = "µ±Ç°Ê±¼ä" + String.valueOf(System.currentTimeMillis());
+          content = "å½“å‰æ—¶é—´" + String.valueOf(System.currentTimeMillis());
           Thread.sleep(1000L);
         }
       } catch (Exception e) {
@@ -17,7 +17,7 @@ public class MainTest {
       }
     }).start();
 
-    // Ïß³Ì2 - ¶ÁÈ¡Êý¾Ý
+    // çº¿ç¨‹2 - è¯»å–æ•°æ®
     new Thread(() -> {
       try {
         while (true) {

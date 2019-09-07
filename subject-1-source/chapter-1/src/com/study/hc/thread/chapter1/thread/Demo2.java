@@ -1,70 +1,70 @@
 package com.study.hc.thread.chapter1.thread;
 
 /**
- * Ê¾Àı2 - ¶àÏß³ÌÔËĞĞ×´Ì¬ÇĞ»»Ê¾Àı <br/>
+ * ç¤ºä¾‹2 - å¤šçº¿ç¨‹è¿è¡ŒçŠ¶æ€åˆ‡æ¢ç¤ºä¾‹ <br/>
  */
 public class Demo2 {
 	public static Thread thread1;
 	public static Demo2 obj;
 
 	public static void main(String[] args) throws Exception {
-		// µÚÒ»ÖÖ×´Ì¬ÇĞ»» - ĞÂ½¨ -> ÔËĞĞ -> ÖÕÖ¹
-		System.out.println("#######µÚÒ»ÖÖ×´Ì¬ÇĞ»»  - ĞÂ½¨ -> ÔËĞĞ -> ÖÕÖ¹################################");
+		// ç¬¬ä¸€ç§çŠ¶æ€åˆ‡æ¢ - æ–°å»º -> è¿è¡Œ -> ç»ˆæ­¢
+		System.out.println("#######ç¬¬ä¸€ç§çŠ¶æ€åˆ‡æ¢  - æ–°å»º -> è¿è¡Œ -> ç»ˆæ­¢################################");
 		Thread thread1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("thread1µ±Ç°×´Ì¬£º" + Thread.currentThread().getState().toString());
-				System.out.println("thread1 Ö´ĞĞÁË");
+				System.out.println("thread1å½“å‰çŠ¶æ€ï¼š" + Thread.currentThread().getState().toString());
+				System.out.println("thread1 æ‰§è¡Œäº†");
 			}
 		});
-		System.out.println("Ã»µ÷ÓÃstart·½·¨£¬thread1µ±Ç°×´Ì¬£º" + thread1.getState().toString());
+		System.out.println("æ²¡è°ƒç”¨startæ–¹æ³•ï¼Œthread1å½“å‰çŠ¶æ€ï¼š" + thread1.getState().toString());
 		thread1.start();
-		Thread.sleep(2000L); // µÈ´ıthread1Ö´ĞĞ½áÊø£¬ÔÙ¿´×´Ì¬
-		System.out.println("µÈ´ıÁ½Ãë£¬ÔÙ¿´thread1µ±Ç°×´Ì¬£º" + thread1.getState().toString());
-		// thread1.start(); TODO ×¢Òâ£¬Ïß³ÌÖÕÖ¹Ö®ºó£¬ÔÙ½øĞĞµ÷ÓÃ£¬»áÅ×³öIllegalThreadStateExceptionÒì³£
+		Thread.sleep(2000L); // ç­‰å¾…thread1æ‰§è¡Œç»“æŸï¼Œå†çœ‹çŠ¶æ€
+		System.out.println("ç­‰å¾…ä¸¤ç§’ï¼Œå†çœ‹thread1å½“å‰çŠ¶æ€ï¼š" + thread1.getState().toString());
+		// thread1.start(); TODO æ³¨æ„ï¼Œçº¿ç¨‹ç»ˆæ­¢ä¹‹åï¼Œå†è¿›è¡Œè°ƒç”¨ï¼Œä¼šæŠ›å‡ºIllegalThreadStateExceptionå¼‚å¸¸
 
 		System.out.println();
-		System.out.println("############µÚ¶şÖÖ£ºĞÂ½¨ -> ÔËĞĞ -> µÈ´ı -> ÔËĞĞ -> ÖÕÖ¹(sleep·½Ê½)###########################");
+		System.out.println("############ç¬¬äºŒç§ï¼šæ–°å»º -> è¿è¡Œ -> ç­‰å¾… -> è¿è¡Œ -> ç»ˆæ­¢(sleepæ–¹å¼)###########################");
 		Thread thread2 = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try {// ½«Ïß³Ì2ÒÆ¶¯µ½µÈ´ı×´Ì¬£¬1500ºó×Ô¶¯»½ĞÑ
+				try {// å°†çº¿ç¨‹2ç§»åŠ¨åˆ°ç­‰å¾…çŠ¶æ€ï¼Œ1500åè‡ªåŠ¨å”¤é†’
 					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("thread2µ±Ç°×´Ì¬£º" + Thread.currentThread().getState().toString());
-				System.out.println("thread2 Ö´ĞĞÁË");
+				System.out.println("thread2å½“å‰çŠ¶æ€ï¼š" + Thread.currentThread().getState().toString());
+				System.out.println("thread2 æ‰§è¡Œäº†");
 			}
 		});
-		System.out.println("Ã»µ÷ÓÃstart·½·¨£¬thread2µ±Ç°×´Ì¬£º" + thread2.getState().toString());
+		System.out.println("æ²¡è°ƒç”¨startæ–¹æ³•ï¼Œthread2å½“å‰çŠ¶æ€ï¼š" + thread2.getState().toString());
 		thread2.start();
-		System.out.println("µ÷ÓÃstart·½·¨£¬thread2µ±Ç°×´Ì¬£º" + thread2.getState().toString());
-		Thread.sleep(200L); // µÈ´ı200ºÁÃë£¬ÔÙ¿´×´Ì¬
-		System.out.println("µÈ´ı200ºÁÃë£¬ÔÙ¿´thread2µ±Ç°×´Ì¬£º" + thread2.getState().toString());
-		Thread.sleep(3000L); // ÔÙµÈ´ı3Ãë£¬ÈÃthread2Ö´ĞĞÍê±Ï£¬ÔÙ¿´×´Ì¬
-		System.out.println("µÈ´ı3Ãë£¬ÔÙ¿´thread2µ±Ç°×´Ì¬£º" + thread2.getState().toString());
+		System.out.println("è°ƒç”¨startæ–¹æ³•ï¼Œthread2å½“å‰çŠ¶æ€ï¼š" + thread2.getState().toString());
+		Thread.sleep(200L); // ç­‰å¾…200æ¯«ç§’ï¼Œå†çœ‹çŠ¶æ€
+		System.out.println("ç­‰å¾…200æ¯«ç§’ï¼Œå†çœ‹thread2å½“å‰çŠ¶æ€ï¼š" + thread2.getState().toString());
+		Thread.sleep(3000L); // å†ç­‰å¾…3ç§’ï¼Œè®©thread2æ‰§è¡Œå®Œæ¯•ï¼Œå†çœ‹çŠ¶æ€
+		System.out.println("ç­‰å¾…3ç§’ï¼Œå†çœ‹thread2å½“å‰çŠ¶æ€ï¼š" + thread2.getState().toString());
 
 		System.out.println();
-		System.out.println("############µÚÈıÖÖ£ºĞÂ½¨ -> ÔËĞĞ -> ×èÈû -> ÔËĞĞ -> ÖÕÖ¹###########################");
+		System.out.println("############ç¬¬ä¸‰ç§ï¼šæ–°å»º -> è¿è¡Œ -> é˜»å¡ -> è¿è¡Œ -> ç»ˆæ­¢###########################");
 		Thread thread3 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				synchronized (Demo2.class) {
-					System.out.println("thread3µ±Ç°×´Ì¬£º" + Thread.currentThread().getState().toString());
-					System.out.println("thread3 Ö´ĞĞÁË");
+					System.out.println("thread3å½“å‰çŠ¶æ€ï¼š" + Thread.currentThread().getState().toString());
+					System.out.println("thread3 æ‰§è¡Œäº†");
 				}
 			}
 		});
 		synchronized (Demo2.class) {
-			System.out.println("Ã»µ÷ÓÃstart·½·¨£¬thread3µ±Ç°×´Ì¬£º" + thread3.getState().toString());
+			System.out.println("æ²¡è°ƒç”¨startæ–¹æ³•ï¼Œthread3å½“å‰çŠ¶æ€ï¼š" + thread3.getState().toString());
 			thread3.start();
-			System.out.println("µ÷ÓÃstart·½·¨£¬thread3µ±Ç°×´Ì¬£º" + thread3.getState().toString());
-			Thread.sleep(200L); // µÈ´ı200ºÁÃë£¬ÔÙ¿´×´Ì¬
-			System.out.println("µÈ´ı200ºÁÃë£¬ÔÙ¿´thread3µ±Ç°×´Ì¬£º" + thread3.getState().toString());
+			System.out.println("è°ƒç”¨startæ–¹æ³•ï¼Œthread3å½“å‰çŠ¶æ€ï¼š" + thread3.getState().toString());
+			Thread.sleep(200L); // ç­‰å¾…200æ¯«ç§’ï¼Œå†çœ‹çŠ¶æ€
+			System.out.println("ç­‰å¾…200æ¯«ç§’ï¼Œå†çœ‹thread3å½“å‰çŠ¶æ€ï¼š" + thread3.getState().toString());
 		}
-		Thread.sleep(3000L); // ÔÙµÈ´ı3Ãë£¬ÈÃthread3Ö´ĞĞÍê±Ï£¬ÔÙ¿´×´Ì¬
-		System.out.println("µÈ´ı3Ãë£¬ÈÃthread3ÇÀµ½Ëø£¬ÔÙ¿´thread3µ±Ç°×´Ì¬£º" + thread3.getState().toString());
+		Thread.sleep(3000L); // å†ç­‰å¾…3ç§’ï¼Œè®©thread3æ‰§è¡Œå®Œæ¯•ï¼Œå†çœ‹çŠ¶æ€
+		System.out.println("ç­‰å¾…3ç§’ï¼Œè®©thread3æŠ¢åˆ°é”ï¼Œå†çœ‹thread3å½“å‰çŠ¶æ€ï¼š" + thread3.getState().toString());
 
 	}
 }

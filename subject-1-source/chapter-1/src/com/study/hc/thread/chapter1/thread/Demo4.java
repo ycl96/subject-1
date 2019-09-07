@@ -1,23 +1,23 @@
 package com.study.hc.thread.chapter1.thread;
 
-/** Í¨¹ı×´Ì¬Î»À´ÅĞ¶Ï */
+/** é€šè¿‡çŠ¶æ€ä½æ¥åˆ¤æ–­ */
 public class Demo4 extends Thread {
   public volatile static boolean flag = true;
 
   public static void main(String[] args) throws InterruptedException {
     new Thread(() -> {
       try {
-        while (flag) { // ÅĞ¶ÏÊÇ·ñÔËĞĞ
-          System.out.println("ÔËĞĞÖĞ");
+        while (flag) { // åˆ¤æ–­æ˜¯å¦è¿è¡Œ
+          System.out.println("è¿è¡Œä¸­");
           Thread.sleep(1000L);
         }
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }).start();
-    // 3ÃëÖ®ºó£¬½«×´Ì¬±êÖ¾¸ÄÎªFalse£¬´ú±í²»¼ÌĞøÔËĞĞ
+    // 3ç§’ä¹‹åï¼Œå°†çŠ¶æ€æ ‡å¿—æ”¹ä¸ºFalseï¼Œä»£è¡¨ä¸ç»§ç»­è¿è¡Œ
     Thread.sleep(3000L);
     flag = false;
-    System.out.println("³ÌĞòÔËĞĞ½áÊø");
+    System.out.println("ç¨‹åºè¿è¡Œç»“æŸ");
   }
 }

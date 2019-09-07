@@ -1,20 +1,20 @@
 package com.study.hc.thread.chapter1.thread;
 
 /**
- * Ê¾Àı3 - Ïß³ÌstopÇ¿ÖÆĞÔÖĞÖ¹£¬ÆÆ»µÏß³Ì°²È«µÄÊ¾Àı
+ * ç¤ºä¾‹3 - çº¿ç¨‹stopå¼ºåˆ¶æ€§ä¸­æ­¢ï¼Œç ´åçº¿ç¨‹å®‰å…¨çš„ç¤ºä¾‹
  */
 public class Demo3 {
   public static void main(String[] args) throws InterruptedException {
     StopThread thread = new StopThread();
     thread.start();
-    // ĞİÃß1Ãë£¬È·±£i±äÁ¿×ÔÔö³É¹¦
+    // ä¼‘çœ 1ç§’ï¼Œç¡®ä¿iå˜é‡è‡ªå¢æˆåŠŸ
     Thread.sleep(1000);
-    // ÔİÍ£Ïß³Ì
-   //  thread.stop(); // ´íÎóµÄÖÕÖ¹
-   thread.interrupt(); // ÕıÈ·ÖÕÖ¹
+    // æš‚åœçº¿ç¨‹
+   //  thread.stop(); // é”™è¯¯çš„ç»ˆæ­¢
+   thread.interrupt(); // æ­£ç¡®ç»ˆæ­¢
     while (thread.isAlive()) {
-      // È·±£Ïß³ÌÒÑ¾­ÖÕÖ¹
-    } // Êä³ö½á¹û
+      // ç¡®ä¿çº¿ç¨‹å·²ç»ç»ˆæ­¢
+    } // è¾“å‡ºç»“æœ
     thread.print();
   }
 }

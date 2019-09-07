@@ -1,40 +1,40 @@
 package com.study.hc.thread.chapter1.thread;
 
-/** Ïß³Ì·â±ÕÊ¾Àı */
+/** çº¿ç¨‹å°é—­ç¤ºä¾‹ */
 public class Demo7 {
-	/** threadLocal±äÁ¿£¬Ã¿¸öÏß³Ì¶¼ÓĞÒ»¸ö¸±±¾£¬»¥²»¸ÉÈÅ */
+	/** threadLocalå˜é‡ï¼Œæ¯ä¸ªçº¿ç¨‹éƒ½æœ‰ä¸€ä¸ªå‰¯æœ¬ï¼Œäº’ä¸å¹²æ‰° */
 	public static ThreadLocal<String> value = new ThreadLocal<>();
 
 	/**
-	 * threadlocal²âÊÔ
+	 * threadlocalæµ‹è¯•
 	 * 
 	 * @throws Exception
 	 */
 	public void threadLocalTest() throws Exception {
 
-		// threadlocalÏß³Ì·â±ÕÊ¾Àı
-		value.set("ÕâÊÇÖ÷Ïß³ÌÉèÖÃµÄ123"); // Ö÷Ïß³ÌÉèÖÃÖµ
+		// threadlocalçº¿ç¨‹å°é—­ç¤ºä¾‹
+		value.set("è¿™æ˜¯ä¸»çº¿ç¨‹è®¾ç½®çš„123"); // ä¸»çº¿ç¨‹è®¾ç½®å€¼
 		String v = value.get();
-		System.out.println("Ïß³Ì1Ö´ĞĞÖ®Ç°£¬Ö÷Ïß³ÌÈ¡µ½µÄÖµ£º" + v);
+		System.out.println("çº¿ç¨‹1æ‰§è¡Œä¹‹å‰ï¼Œä¸»çº¿ç¨‹å–åˆ°çš„å€¼ï¼š" + v);
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				String v = value.get();
-				System.out.println("Ïß³Ì1È¡µ½µÄÖµ£º" + v);
-				// ÉèÖÃ threadLocal
-				value.set("ÕâÊÇÏß³Ì1ÉèÖÃµÄ456");
+				System.out.println("çº¿ç¨‹1å–åˆ°çš„å€¼ï¼š" + v);
+				// è®¾ç½® threadLocal
+				value.set("è¿™æ˜¯çº¿ç¨‹1è®¾ç½®çš„456");
 
 				v = value.get();
-				System.out.println("ÖØĞÂÉèÖÃÖ®ºó£¬Ïß³Ì1È¡µ½µÄÖµ£º" + v);
-				System.out.println("Ïß³Ì1Ö´ĞĞ½áÊø");
+				System.out.println("é‡æ–°è®¾ç½®ä¹‹åï¼Œçº¿ç¨‹1å–åˆ°çš„å€¼ï¼š" + v);
+				System.out.println("çº¿ç¨‹1æ‰§è¡Œç»“æŸ");
 			}
 		}).start();
 
-		Thread.sleep(5000L); // µÈ´ıËùÓĞÏß³ÌÖ´ĞĞ½áÊø
+		Thread.sleep(5000L); // ç­‰å¾…æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œç»“æŸ
 
 		v = value.get();
-		System.out.println("Ïß³Ì1Ö´ĞĞÖ®ºó£¬Ö÷Ïß³ÌÈ¡µ½µÄÖµ£º" + v);
+		System.out.println("çº¿ç¨‹1æ‰§è¡Œä¹‹åï¼Œä¸»çº¿ç¨‹å–åˆ°çš„å€¼ï¼š" + v);
 
 	}
 

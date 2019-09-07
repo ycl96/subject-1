@@ -5,10 +5,10 @@ public class StopThread extends Thread {
   @Override
   public void run() {
     synchronized (this) {
-	    // Ôö¼ÓÍ¬²½Ëø£¬È·±£Ïß³Ì°²È«
+	    // å¢åŠ åŒæ­¥é”ï¼Œç¡®ä¿çº¿ç¨‹å®‰å…¨
 	    ++i;
 	    try {
-	      // ĞİÃß10Ãë,Ä£ÄâºÄÊ±²Ù×÷
+	      // ä¼‘çœ 10ç§’,æ¨¡æ‹Ÿè€—æ—¶æ“ä½œ
 	      Thread.sleep(10000);
 	    } catch (InterruptedException e) {
 	      e.printStackTrace();
@@ -17,7 +17,7 @@ public class StopThread extends Thread {
     }
   }
 
-  /** * ´òÓ¡iºÍj */
+  /** * æ‰“å°iå’Œj */
   public void print() {
   System.out.println("i=" + i + " j=" + j);
   }
